@@ -24,7 +24,7 @@ int main() {
 		cout << "" << endl;
 	}
 
-	cout << "\nMatriz Transpuesta" << endl;
+	cout << "\nMatriz transpuesta" << endl;
 	for (int i = 0; i < longitudVector; i++) {
 		for (int j = 0; j < longitudVector; j++) {
 			cout << matrizTranspuesta[i][j] << "\t" ;
