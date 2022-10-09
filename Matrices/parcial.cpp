@@ -25,16 +25,16 @@ void addOrSubstractMatrix(bool isAdd) {
 	cout << "Ingrese el tamanio de la matriz" << endl;
 	cin >> size;
 	
-	float matriz[2][size][size];
-	float matrizResultado[size][size];
+	float matrix[2][size][size];
+	float resultMatrix[size][size];
 	
 	// fill matrix
 	for (int m = 0; m < 2; m++) {
 		cout << "" << endl;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				cout << "Ingrese el valor para la fila " << i << " columna " << j << " de la matriz " << m << endl;
-				cin >> matriz[m][i][j];
+				cout << "Ingrese el valor para la fila " << i + 1 << " columna " << j + 1 << " de la matriz " << m + 1 << endl;
+				cin >> matrix[m][i][j];
 			}
 		}
 	}
@@ -42,16 +42,16 @@ void addOrSubstractMatrix(bool isAdd) {
 	// calculate result
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
-			float elementoUno = matriz[0][i][j];
-			float elementoDos = matriz[1][i][j];
-			matrizResultado[i][j] = isAdd ? elementoUno + elementoDos : elementoUno - elementoDos;
+			float elementFirstMatrix = matrix[0][i][j];
+			float elementSecondMatrix = matrix[1][i][j];
+			resultMatrix[i][j] = isAdd ? elementFirstMatrix + elementSecondMatrix : elementFirstMatrix - elementSecondMatrix;
 		}
 	}
 	
 	cout << "\nMatriz 1" << endl;
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
-			cout << matriz[0][i][j] << "\t" ;
+			cout << matrix[0][i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
@@ -59,16 +59,15 @@ void addOrSubstractMatrix(bool isAdd) {
 	cout << "\nMatriz 2" << endl;
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
-			cout << matriz[1][i][j] << "\t" ;
+			cout << matrix[1][i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
 	
-	
 	cout << "\nMatriz resultado" << endl;
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
-			cout << matrizResultado[i][j] << "\t" ;
+			cout << resultMatrix[i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
@@ -77,89 +76,90 @@ void addOrSubstractMatrix(bool isAdd) {
 	
 }
 
-bool multiplyMatrix() {
+void multiplyMatrix() {
 	
-	int sizeFilaUno, sizeFilaDos, sizeColumnaUno, sizeColumnaDos;
+	int rowsFirstMatrix, rowsSecondMatrix, columnsFirstMatrix, columnsSecondMatrix;
+	float aux;
 	
 	cout << "Ingrese la cantidad de filas de la matriz 1" << endl;
-	cin >> sizeFilaUno;
+	cin >> rowsFirstMatrix;
 	
 	cout << "Ingrese la cantidad de columnas de la matriz 1" << endl;
-	cin >> sizeColumnaUno;
+	cin >> columnsFirstMatrix;
 	
 	cout << "Ingrese la cantidad de filas de la matriz 2" << endl;
-	cin >> sizeFilaDos;
+	cin >> rowsSecondMatrix;
 	
 	cout << "Ingrese la cantidad de columnas de la matriz 2" << endl;
-	cin >> sizeColumnaDos;
+	cin >> columnsSecondMatrix;
 	
 	cout << "" << endl;
 	
-	if (sizeColumnaUno != sizeFilaDos) {
+	if (columnsFirstMatrix != rowsSecondMatrix) {
 		cout << "No se puede realizar la operacion" << endl;
 		cout << "La cantidad de columnas en la matriz 1 es diferente a la cantidad de filas de la matriz 2" << endl;
-		return false;
+		cout << "" << endl;
+		return;
 	}
 	
-	float sumaProducto;
-	float matriz1[sizeFilaUno][sizeColumnaUno];
-	float matriz2[sizeFilaDos][sizeColumnaDos];
-	float matrizProducto[sizeFilaUno][sizeColumnaDos];
+	float matrixOne[rowsFirstMatrix][columnsFirstMatrix];
+	float matrixTwo[rowsSecondMatrix][columnsSecondMatrix];
+	float resultMatrix[rowsFirstMatrix][columnsSecondMatrix];
 	
-	for (int i = 0; i < sizeFilaUno; i++) {
-		for (int j = 0; j < sizeColumnaUno; j++) {
-			cout << "Ingrese el valor para la fila " << i << " columna " << j << " de la matriz 1" << endl;
-			cin >> matriz1[i][j];
+	for (int i = 0; i < rowsFirstMatrix; i++) {
+		for (int j = 0; j < columnsFirstMatrix; j++) {
+			cout << "Ingrese el valor para la fila " << i + 1 << " columna " << j + 1 << " de la matriz 1" << endl;
+			cin >> matrixOne[i][j];
 		}
 	}
 	
 	cout << "\n" << endl;
 	
-	for (int i = 0; i < sizeFilaDos; i++) {
-		for (int j = 0; j < sizeColumnaDos; j++) {
-			cout << "Ingrese el valor para la fila " << i << " columna " << j << " de la matriz 2" << endl;
-			cin >> matriz2[i][j];
+	for (int i = 0; i < rowsSecondMatrix; i++) {
+		for (int j = 0; j < columnsSecondMatrix; j++) {
+			cout << "Ingrese el valor para la fila " << i + 1 << " columna " << j + 1 << " de la matriz 2" << endl;
+			cin >> matrixTwo[i][j];
 		}
 	}
 	
-	for (int i = 0; i < sizeFilaUno; i++) {
-		for (int j = 0; j < sizeColumnaDos; j++) {
-			sumaProducto = 0;
-			for (int k = 0; k < sizeColumnaUno; k++) {
-				sumaProducto += matriz1[i][k] * matriz2[k][j];
+	// calculate result
+	for (int i = 0; i < rowsFirstMatrix; i++) {
+		for (int j = 0; j < columnsSecondMatrix; j++) {
+			aux = 0;
+			for (int k = 0; k < columnsFirstMatrix; k++) {
+				aux += matrixOne[i][k] * matrixTwo[k][j];
 			}
-			matrizProducto[i][j] = sumaProducto;
+			resultMatrix[i][j] = aux;
 		}
 	}
 	
 	cout << "\nMatriz 1" << endl;
-	for (int i = 0; i < sizeFilaUno; i++) {
-		for (int j = 0; j < sizeColumnaUno; j++) {
-			cout << matriz1[i][j] << "\t" ;
+	for (int i = 0; i < rowsFirstMatrix; i++) {
+		for (int j = 0; j < columnsFirstMatrix; j++) {
+			cout << matrixOne[i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
 		
 	cout << "\nMatriz 2" << endl;
-	for (int i = 0; i < sizeFilaDos; i++) {
-		for (int j = 0; j < sizeColumnaDos; j++) {
-			cout << matriz2[i][j] << "\t" ;
+	for (int i = 0; i < rowsSecondMatrix; i++) {
+		for (int j = 0; j < columnsSecondMatrix; j++) {
+			cout << matrixTwo[i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
 	
 	
 	cout << "\nMatriz producto" << endl;
-	for (int i = 0; i < sizeFilaUno; i++) {
-		for (int j = 0; j < sizeColumnaDos; j++) {
-			cout << matrizProducto[i][j] << "\t" ;
+	for (int i = 0; i < rowsFirstMatrix; i++) {
+		for (int j = 0; j < columnsSecondMatrix; j++) {
+			cout << resultMatrix[i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
 	
 	cout << "" << endl;
 	
-	return true;
 }
 
 int main() {
@@ -169,11 +169,11 @@ int main() {
 	int option;
 	
 	do {
+		
 		option = loadMenu();
 		
 		if (option == 4) {
-			cout << "Adios" << endl;
-			return 0;
+			break;
 		}
 		
 		switch (option) {
@@ -188,10 +188,11 @@ int main() {
 				break;
 			default:
 				cout << "La opcion ingresada no es valida" << endl;
-		}
-				
+		}		
 		
 	} while (true);
+	
+	cout << "Adios" << endl;
 	
 	return 0;
 }
