@@ -28,6 +28,14 @@ void addOrSubstractMatrix(bool isAdd) {
 	cout << "Ingrese la cantidad de columnas para las matrices" << endl;
 	cin >> columns;
 	
+	if (rows < 1 || columns < 1) {
+		cout << "" << endl;
+		cout << "No se puede realizar la operacion" << endl;
+		cout << "El numero de filas o colmnas debe ser mayor o igual a 1" << endl;
+		cout << "" << endl;
+		return;
+	}
+	
 	float matrix[2][rows][columns];
 	float resultMatrix[rows][columns];
 	
@@ -98,6 +106,13 @@ void multiplyMatrix() {
 	cin >> columnsSecondMatrix;
 	
 	cout << "" << endl;
+	
+	if (rowsFirstMatrix < 1 || columnsFirstMatrix < 1 || rowsSecondMatrix < 1 || columnsSecondMatrix < 1) {
+		cout << "No se puede realizar la operacion" << endl;
+		cout << "El numero de filas o colmnas debe ser mayor o igual a 1" << endl;
+		cout << "" << endl;
+		return;
+	}
 	
 	if (columnsFirstMatrix != rowsSecondMatrix) {
 		cout << "No se puede realizar la operacion" << endl;
