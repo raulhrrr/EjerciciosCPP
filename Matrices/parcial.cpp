@@ -20,19 +20,22 @@ int loadMenu() {
 
 void addOrSubstractMatrix(bool isAdd) {
 	
-	int size;
+	int rows, columns;
 	
-	cout << "Ingrese el tamanio de la matriz" << endl;
-	cin >> size;
+	cout << "Ingrese la cantidad de filas para las matrices" << endl;
+	cin >> rows;
 	
-	float matrix[2][size][size];
-	float resultMatrix[size][size];
+	cout << "Ingrese la cantidad de columnas para las matrices" << endl;
+	cin >> columns;
+	
+	float matrix[2][rows][columns];
+	float resultMatrix[rows][columns];
 	
 	// fill matrix
 	for (int m = 0; m < 2; m++) {
 		cout << "" << endl;
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
 				cout << "Ingrese el valor para la fila " << i + 1 << " columna " << j + 1 << " de la matriz " << m + 1 << endl;
 				cin >> matrix[m][i][j];
 			}
@@ -40,8 +43,8 @@ void addOrSubstractMatrix(bool isAdd) {
 	}
 	
 	// calculate result
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
 			float elementFirstMatrix = matrix[0][i][j];
 			float elementSecondMatrix = matrix[1][i][j];
 			resultMatrix[i][j] = isAdd ? elementFirstMatrix + elementSecondMatrix : elementFirstMatrix - elementSecondMatrix;
@@ -49,24 +52,25 @@ void addOrSubstractMatrix(bool isAdd) {
 	}
 	
 	cout << "\nMatriz 1" << endl;
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
 			cout << matrix[0][i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
 		
 	cout << "\nMatriz 2" << endl;
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
 			cout << matrix[1][i][j] << "\t" ;
 		}
 		cout << "" << endl;
 	}
 	
-	cout << "\nMatriz resultado" << endl;
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++) {
+	string tipoOperacion = isAdd ? "suma" : "resta";
+	cout << "\nMatriz " << tipoOperacion << endl;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
 			cout << resultMatrix[i][j] << "\t" ;
 		}
 		cout << "" << endl;
