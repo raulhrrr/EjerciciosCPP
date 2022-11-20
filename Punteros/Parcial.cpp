@@ -8,13 +8,6 @@ struct Room {
     bool isAvailable;
 };
 
-struct Hotel {
-    list<Room> floorOne;
-    list<Room> floorTwo;
-    list<Room> floorThree;
-    list<Room> floorFour;
-};
-
 int loadMenu() {
     int option;
 
@@ -30,7 +23,7 @@ int loadMenu() {
     return option;
 }
 
-list<list<Room>> populateHotel(Hotel *hotel) {
+list<list<Room>> getAllRooms() {
     list<Room> roomsFloorOne = {
             {101, true},
             {102, false},
@@ -56,17 +49,12 @@ list<list<Room>> populateHotel(Hotel *hotel) {
             {404, true}
     };
 
-    hotel->floorOne = roomsFloorOne;
-    hotel->floorTwo = roomsFloorTwo;
-    hotel->floorThree = roomsFloorThree;
-    hotel->floorFour = roomsFloorFour;
-
-    return {hotel->floorOne, hotel->floorTwo, hotel->floorThree, hotel->floorFour};
+    return {roomsFloorOne, roomsFloorTwo, roomsFloorThree, roomsFloorFour};
 }
 
-void showRooms(list<list<Room>> floors) {
+void showRooms(list<list<Room>> allRooms) {
     cout << "** Disponibilidad de las habitaciones **" << endl;
-    for (list<Room> &rooms: floors) {
+    for (list<Room> &rooms: allRooms) {
         for (Room &room: rooms) {
             if (room.isAvailable) {
                 cout << room.id << " -> " << &room << endl;
@@ -78,7 +66,7 @@ void showRooms(list<list<Room>> floors) {
     }
 }
 
-void reserveOrCancelRoom(int userOption, list<list<Room>> *floors) {
+void reserveOrCancelRoom(int userOption, list<list<Room>> *allRooms) {
 
     int roomId;
 
@@ -87,7 +75,7 @@ void reserveOrCancelRoom(int userOption, list<list<Room>> *floors) {
     cout << "** Ingrese la habitacion a " << actionVerb << " **" << endl;
     cin >> roomId;
 
-    for (list<Room> &rooms: *floors) {
+    for (list<Room> &rooms: *allRooms) {
         for (Room &room: rooms) {
 
             if (room.id != roomId) continue;
@@ -115,9 +103,8 @@ void reserveOrCancelRoom(int userOption, list<list<Room>> *floors) {
 
 int main() {
 
-    Hotel hotel;
     int option = -1;
-    list<list<Room>> floors = populateHotel(&hotel);
+    list<list<Room>> allRooms = getAllRooms();
 
     while (option != 4) {
 
@@ -125,13 +112,13 @@ int main() {
 
         switch (option) {
             case 1:
-                showRooms(floors);
+                showRooms(allRooms);
                 break;
             case 2:
-                reserveOrCancelRoom(2, &floors);
+                reserveOrCancelRoom(2, &allRooms);
                 break;
             case 3:
-                reserveOrCancelRoom(3, &floors);
+                reserveOrCancelRoom(3, &allRooms);
                 break;
             case 4:
                 cout << "** Adios! **" << endl;
